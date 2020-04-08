@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PointOfSales.DataDistribution.Application.Interfaces;
 using PointOfSales.DataDistribution.Domain.Common;
 using PointOfSales.DataDistribution.Domain.Entities;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.DataDistribution.Infrastructure.Persistence.Context
 {
-    public class ApplicationDbContext : DbContext,IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTimeService _dateTimeService;

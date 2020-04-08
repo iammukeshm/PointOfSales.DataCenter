@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PointOfSales.DataDistribution.Application.Interfaces;
 using PointOfSales.DataDistribution.Infrastructure.Persistence.Context;
+using PointOfSales.DataDistribution.Infrastructure.Persistence.Models;
 using PointOfSales.DataDistribution.Infrastructure.Persistence.Services;
 
 namespace PointOfSales.DataDistribution.Infrastructure.Persistence
@@ -18,8 +20,10 @@ namespace PointOfSales.DataDistribution.Infrastructure.Persistence
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+            //Adds/Injects UserManager Service
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            
+
             services.AddTransient<IDateTimeService, DateTimeService>();
 
             services.AddAuthentication();

@@ -11,6 +11,8 @@ namespace PointOfSales.DataDistribution.Domain.Entities
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public ProductCategory ProductCategory { get; set; }
+
+        public int ProductCategoryId { get; set; }
         public int Tenant { get; set; }
     }
 }

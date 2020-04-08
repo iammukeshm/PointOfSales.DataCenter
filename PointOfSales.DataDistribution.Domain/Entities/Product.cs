@@ -14,6 +14,8 @@ namespace PointOfSales.DataDistribution.Domain.Entities
         public string Description { get; set; }
         public bool DisableIfStockIsZero { get; set; } = true;
         public ProductGroup ProductGroup { get; set; }
+
+        public int ProductGroupId { get; set; }
         public decimal BuyingPrice { get; set; }
         public decimal SellingPrice { get; set; }
     }
