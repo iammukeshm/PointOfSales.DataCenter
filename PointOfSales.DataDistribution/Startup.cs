@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PointOfSales.DataDistribution.Application.Interfaces;
+using PointOfSales.DataDistribution.Infrastructure.Persistence;
+using PointOfSales.DataDistribution.Services;
 using System;
 using System.Collections.Generic;
 
@@ -25,6 +28,11 @@ namespace PointOfSales.DataDistribution
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DI for Infrastructure.Persitence
+            services.ConfigureInfrastructure(_configuration, _environment);
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services.AddHttpContextAccessor();
 
             #region Swagger
             services.AddSwaggerGen(c =>
