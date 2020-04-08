@@ -8,6 +8,7 @@
     <Folder Include="DTOs\" />
     <Folder Include="Features\" />
     <Folder Include="Exceptions\" />
+    <Folder Include="Behaviours\" />
   </ItemGroup>
 
   <ItemGroup>
