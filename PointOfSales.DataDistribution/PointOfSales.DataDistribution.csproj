@@ -8,11 +8,10 @@
     <DocumentationFile>C:\Users\iammu\source\repos\PointOfSales.DataDistribution\PointOfSales.DataDistribution\PointOfSales.DataDistribution.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\v1\" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.3.1" />
   </ItemGroup>
 
 
