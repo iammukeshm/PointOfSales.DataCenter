@@ -22,6 +22,10 @@ namespace PointOfSales.DataCenter.Application.DTOs
         {
             return new Result<T>(true, new string[] { }, data);
         }
+        public static Result<T> Success(string message,T data)
+        {
+            return new Result<T>(true, new string[] { message }, data);
+        }
 
         public static Result<T> Failure(IEnumerable<string> errors)
         {

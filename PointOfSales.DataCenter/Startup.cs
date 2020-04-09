@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PointOfSales.DataCenter.Application;
 using PointOfSales.DataCenter.Application.Interfaces;
+using PointOfSales.DataCenter.Domain.Settings;
 using PointOfSales.DataCenter.Infrastructure.Persistence;
 using PointOfSales.DataCenter.Services;
 using System;
@@ -29,6 +30,10 @@ namespace PointOfSales.DataCenter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Configuration from AppSettings
+            services.Configure<JwtSecurityTokenSettings>(_configuration.GetSection("JwtSecurityToken"));
+            #endregion
+
             //DI for Application
             services.AddApplication();
 

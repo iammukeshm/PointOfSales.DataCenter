@@ -22,5 +22,10 @@ namespace PointOfSales.DataCenter.Controllers
             var result = await Mediator.Send(command);
             return Ok(result);
         }
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(LoginUserCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
     }
 }

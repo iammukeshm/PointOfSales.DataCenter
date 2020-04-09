@@ -13,7 +13,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
     {
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, ApplicationDbContext context, int? retry = 0)
         {
-            var defaultUser = new ApplicationUser { UserName = "iammukeshm", Email = "iammukeshm@gmail.com" };
+            var defaultUser = new ApplicationUser { UserName = "iammukeshm", Email = "iammukeshm@gmail.com",EmailConfirmed=true,PhoneNumberConfirmed=true,PhoneNumber="7306488721" };
 
             if (userManager.Users.All(u => u.Id != defaultUser.Id))
             {
