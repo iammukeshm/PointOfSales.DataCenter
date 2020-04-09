@@ -5,13 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Repositories
 {
     public class GenericRepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {
         protected readonly ApplicationDbContext _dbContext;
-
+       
         public GenericRepositoryAsync(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -26,7 +28,6 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Repositories
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
-
         //public async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
         //{
         //    return await ApplySpecification(spec).ToListAsync();
@@ -41,7 +42,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Repositories
         {
             await _dbContext.Set<T>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-
+            
             return entity;
         }
 
