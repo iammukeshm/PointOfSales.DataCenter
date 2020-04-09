@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PointOfSales.DataCenter.Application.DTOs;
@@ -138,6 +139,12 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                 expires: DateTime.UtcNow.AddMinutes(_jwt.DurationInMinutes),
                 signingCredentials: signingCredentials);
             return jwtSecurityToken;
+        }
+        public async Task<string> GetUserNameAsync(string userId)
+        {
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+            return user.UserName;
         }
     }
 }

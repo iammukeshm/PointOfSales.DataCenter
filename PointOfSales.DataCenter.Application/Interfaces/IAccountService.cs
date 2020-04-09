@@ -9,6 +9,7 @@ namespace PointOfSales.DataCenter.Application.Interfaces
 {
     public interface IAccountService
     {
+        Task<string> GetUserNameAsync(string userId);
         Task<Result<string>> RegisterAsync(string userName, string password, string email);
         Task<Result<LoginUserViewModel>> LoginAsync(string password, string email);
     }
