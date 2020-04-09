@@ -31,5 +31,9 @@ namespace PointOfSales.DataCenter.Application.DTOs
         {
             return new Result<T>(false, errors,default);
         }
+        public static Result<T> Failure(string error)
+        {
+            return new Result<T>(false, new string[] { error }, default);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace PointOfSales.DataCenter.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Barcode { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
         public string Description { get; set; }
         public bool DisableIfStockIsZero { get; set; } = true;
         public ProductGroup ProductGroup { get; set; }

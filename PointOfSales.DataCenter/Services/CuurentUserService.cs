@@ -12,7 +12,7 @@ namespace PointOfSales.DataCenter.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue("uid");
         }
 
         public string UserId { get; }

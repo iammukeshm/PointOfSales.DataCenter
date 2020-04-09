@@ -120,6 +120,7 @@ namespace PointOfSales.DataCenter
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             #region Swagger

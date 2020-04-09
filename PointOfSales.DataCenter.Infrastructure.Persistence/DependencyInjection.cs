@@ -4,8 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PointOfSales.DataCenter.Application.Interfaces;
+using PointOfSales.DataCenter.Application.Interfaces.Repositories;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
+using PointOfSales.DataCenter.Infrastructure.Persistence.Helpers;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
+using PointOfSales.DataCenter.Infrastructure.Persistence.Repositories;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Services;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence
@@ -29,7 +32,18 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IDateTimeService, DateTimeService>();
 
+
+            //Repositories
+            //Generic
+            services.AddTransient(typeof(IRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            //Specific Repositories
+            services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+
             services.AddAuthentication();
+
+            //Keep this always at last. JWT
+            AuthenticationHelper.ConfigureService(services, configuration["JwtSecurityToken:Issuer"], configuration["JwtSecurityToken:Audience"], configuration["JwtSecurityToken:Key"]);
+
 
             return services;
         }
