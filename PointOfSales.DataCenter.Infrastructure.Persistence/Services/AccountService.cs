@@ -43,6 +43,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             //    //await _emailService.SendEmailConfirmationAsync(email, callbackUrl);
 
             //    return result.ToApplicationResult("", user.Id);
+            
             //}
             return result.ToApplicationResult("", user.Id);
         }
