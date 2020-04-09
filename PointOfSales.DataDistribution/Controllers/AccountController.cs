@@ -16,11 +16,11 @@ namespace PointOfSales.DataDistribution.Controllers
         protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
         [HttpPost("register")]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> RegisterAsync(RegisterUserCommand command)
         {
-            await Mediator.Send(command);
-            return Ok();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }

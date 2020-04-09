@@ -20,10 +20,12 @@ namespace PointOfSales.DataDistribution.Infrastructure.Persistence
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
-            //Adds/Injects UserManager Service
+
+            //UserManager Service
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-
+            //Services
+            services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IDateTimeService, DateTimeService>();
 
             services.AddAuthentication();
