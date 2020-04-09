@@ -12,6 +12,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
 {
     public static class DependencyInjection
     {
+        //Check
         public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
