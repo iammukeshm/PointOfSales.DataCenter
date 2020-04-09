@@ -8,6 +8,7 @@
     <DocumentationFile>C:\Users\iammu\source\repos\PointOfSales.DataDistribution\PointOfSales.DataDistribution\PointOfSales.DataDistribution.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
