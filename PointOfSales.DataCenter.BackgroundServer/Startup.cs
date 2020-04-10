@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using PointOfSales.Domain.Settings;
 using Serilog;
 using Serilog.Events;
+using Serilog.Filters;
 using System;
 using System.IO;
 
@@ -23,7 +24,7 @@ namespace PointOfSales.BackgroundServer
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
-                .MinimumLevel.Override("Hangfire", LogEventLevel.Warning)
+                .MinimumLevel.Override("Hangfire", LogEventLevel.Information)
                 .WriteTo.File(Path.Combine(environment.ContentRootPath, "logs", "Log-.txt"),
                     fileSizeLimitBytes: 10 * 1024 * 1024,
                     rollOnFileSizeLimit: true,
@@ -31,6 +32,15 @@ namespace PointOfSales.BackgroundServer
                     flushToDiskInterval: TimeSpan.FromSeconds(1),
                     rollingInterval: RollingInterval.Day
                     )
+                .WriteTo.Logger(lc => lc
+                    .Filter.ByIncludingOnly(Matching.FromSource("PointOfSales.DataCenter.Infrastructure.Persistence.Services.Email"))
+                    .WriteTo.File(Path.Combine(environment.ContentRootPath, "logs", "EmailLogs-.txt"),
+                        fileSizeLimitBytes: 10 * 1024 * 1024,
+                        rollOnFileSizeLimit: true,
+                        shared: true,
+                        flushToDiskInterval: TimeSpan.FromSeconds(1),
+                        rollingInterval: RollingInterval.Day
+                        ))
                 .CreateLogger();
         }
 
@@ -49,7 +59,7 @@ namespace PointOfSales.BackgroundServer
                 x.UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"), options);
             });
             services.AddHangfireServer(options =>
-            options.ServerName = "Hangfire Server"
+            options.ServerName = "DataCenter.BackgroundServer"
             );
             services.AddControllers();
         }

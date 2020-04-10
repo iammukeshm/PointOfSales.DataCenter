@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.Domain.Settings;
 using System;
@@ -14,8 +15,10 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services.Email
     public class EmailService : IEmailService
     {
         private readonly SmtpSettings _smtp;
-        public EmailService(IOptions<SmtpSettings> smtp)
+        private readonly ILogger _logger;
+        public EmailService(IOptions<SmtpSettings> smtp, ILogger<EmailService> logger)
         {
+            _logger = logger;
             _smtp = smtp.Value;
         }
         [DisplayName("Mailing {0}")]
@@ -39,12 +42,13 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services.Email
                     smtp.Credentials = new NetworkCredential(_smtp.FromMailAddress, _smtp.Password);
                     smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtp.Send(message);
+                    _logger.LogInformation("Mail Sent Successfully to {recipient}.",toEmail);
                 }
                 
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex, "Caught an Error in SendEmailAsync()");
             }
             
             // TODO: Wire this up to actual email sending logic via SendGrid, local SMTP, etc.
