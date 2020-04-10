@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PointOfSales.DataCenter.Application;
@@ -14,6 +16,8 @@ using PointOfSales.DataCenter.Infrastructure.Persistence;
 using PointOfSales.DataCenter.Services;
 using System;
 using System.Collections.Generic;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Http;
 
 namespace PointOfSales.DataCenter
 {
@@ -38,9 +42,14 @@ namespace PointOfSales.DataCenter
             #endregion
 
             #region Hangfire
-            services.ConfigureHangfire(_configuration);           
+            services.ConfigureHangfire(_configuration);
             #endregion
 
+            services.AddHealthChecks().AddSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            //services.AddHealthChecksUI(setupSettings: setup =>
+            //{
+            //    setup.AddHealthCheckEndpoint("Basic Health Check", $"https://localhost:44348/healthcheck");
+            //});
             //DI for Application
             services.AddApplication();
 
@@ -144,10 +153,26 @@ namespace PointOfSales.DataCenter
             });
             #endregion
 
+
+            app.UseHealthChecks("/healthcheck", new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+                ResultStatusCodes =
+                {
+                    [HealthStatus.Healthy] = StatusCodes.Status200OK,
+                    [HealthStatus.Degraded] = StatusCodes.Status500InternalServerError,
+                    [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+                },
+            });
+            //app.UseHealthChecksUI();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            
         }
     }
 }
