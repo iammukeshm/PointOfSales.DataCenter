@@ -30,7 +30,16 @@ namespace PointOfSales.DataCenter.Application.Behaviours
                 userName = await _accountService.GetUserNameAsync(userId);
             }
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(request);
-            _logger.LogInformation($"DataCenter Request by {userName} {userId} - {requestName} with Parameters {jsonString}");
+            if (string.IsNullOrEmpty(userName))
+            {
+                _logger.LogInformation($"DataCenter Request by Anonymous - {requestName} with Parameters {jsonString}");
+            }
+            else
+            {
+                _logger.LogInformation($"DataCenter Request by {userName} {userId} - {requestName} with Parameters {jsonString}");
+            }
+            
+            
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace PointOfSales.DataCenter.Infrastructure.HangfireDashboard
+namespace PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI
 {
     public class Program
     {

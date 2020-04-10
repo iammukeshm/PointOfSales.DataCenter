@@ -26,9 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSales.DataCenter.Inf
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D82D3DED-6913-4691-B03E-A352B5D68D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSales.DataCenter.Infrastructure.HangfireDashboard", "PointOfSales.DataCenter.Infrastructure.HangfireDashboard\PointOfSales.DataCenter.Infrastructure.HangfireDashboard.csproj", "{C9A33D8C-E636-4FEB-8DC5-AF576F52D93B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI", "PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI\PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI.csproj", "{C9A33D8C-E636-4FEB-8DC5-AF576F52D93B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSales.DataCenter.Infrastructure.Hangfire", "PointOfSales.DataCenter.Infrastructure.Hangfire\PointOfSales.DataCenter.Infrastructure.Hangfire.csproj", "{33386AAB-E0D5-4ADB-93C9-2351113C7FCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSales.DataCenter.Infrastructure.Hangfire", "PointOfSales.DataCenter.Infrastructure.Hangfire\PointOfSales.DataCenter.Infrastructure.Hangfire.csproj", "{33386AAB-E0D5-4ADB-93C9-2351113C7FCC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Job", "Job", "{447E5B52-3A57-4469-83EA-38C809B4B5C4}"
 EndProject

@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
+using System;
+using System.Threading.Tasks;
+using Serilog;
 
 namespace PointOfSales.DataCenter
 {
@@ -17,6 +15,7 @@ namespace PointOfSales.DataCenter
     {
         public async static Task Main(string[] args)
         {
+
             var host = CreateHostBuilder(args)
                         .Build();
 
@@ -47,6 +46,7 @@ namespace PointOfSales.DataCenter
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
+                webBuilder.UseSerilog();
             });
     }
 }

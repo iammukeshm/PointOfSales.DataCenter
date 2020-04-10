@@ -1,11 +1,11 @@
-using Hangfire;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PointOfSales.DataCenter.Application;
@@ -14,11 +14,12 @@ using PointOfSales.DataCenter.Domain.Settings;
 using PointOfSales.DataCenter.Infrastructure.Hangfire;
 using PointOfSales.DataCenter.Infrastructure.Persistence;
 using PointOfSales.DataCenter.Services;
+using Serilog;
+using Serilog.Events;
+using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.Collections.Generic;
-using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Http;
-using Swashbuckle.AspNetCore.SwaggerUI;
+using System.IO;
 
 namespace PointOfSales.DataCenter
 {
@@ -28,6 +29,22 @@ namespace PointOfSales.DataCenter
         {
             _configuration = configuration;
             _environment = environment;
+            var logConfiguration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
+            Directory.CreateDirectory(Path.Combine(environment.ContentRootPath, "logs"));
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Error)
+                .MinimumLevel.Override("Hangfire", LogEventLevel.Warning)
+                .WriteTo.File(Path.Combine(environment.ContentRootPath, "logs", "Log-.txt"),
+                    fileSizeLimitBytes: 10 * 1024 * 1024,
+                    rollOnFileSizeLimit: true,
+                    shared: true,
+                    flushToDiskInterval: TimeSpan.FromSeconds(1),
+                    rollingInterval: RollingInterval.Day
+                    )
+                .CreateLogger();
         }
 
         public IConfiguration _configuration { get; }
@@ -80,7 +97,7 @@ namespace PointOfSales.DataCenter
                 {
                     Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.Http,
+                    Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     Description = "Input your Bearer token to access this API",
@@ -94,12 +111,14 @@ namespace PointOfSales.DataCenter
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "bearer",
+                                Id = "Bearer",
                             },
+                            Scheme = "Bearer",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
                         }, new List<string>()
                     },
                 });
-
             });
             #endregion
 
@@ -157,7 +176,6 @@ namespace PointOfSales.DataCenter
             app.UseHealthChecks("/healthcheck", new HealthCheckOptions
             {
                 Predicate = _ => true,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
                 ResultStatusCodes =
                 {
                     [HealthStatus.Healthy] = StatusCodes.Status200OK,
