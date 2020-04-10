@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Http;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace PointOfSales.DataCenter
 {
@@ -77,33 +78,27 @@ namespace PointOfSales.DataCenter
                 });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
-                      Enter 'Bearer' [space] and then your token in the text input below.
-                      \r\n\r\nExample: 'Bearer 12345abcdef'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Description = "Input your Bearer token to access this API",
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
-      {
-        {
-          new OpenApiSecurityScheme
-          {
-            Reference = new OpenApiReference
-              {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-              },
-              Scheme = "oauth2",
-              Name = "Bearer",
-              In = ParameterLocation.Header,
-
-            },
-            new List<string>()
-          }
-        });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "bearer",
+                            },
+                        }, new List<string>()
+                    },
+                });
 
             });
             #endregion
@@ -128,7 +123,7 @@ namespace PointOfSales.DataCenter
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             // Configure hangfire to use the new JobActivator we defined.
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -149,7 +144,12 @@ namespace PointOfSales.DataCenter
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PointOfSales WebApi V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PointOfSales Api");
+                c.DefaultModelExpandDepth(2);
+                c.DefaultModelRendering(ModelRendering.Model);
+                c.DocExpansion(DocExpansion.None);
+                c.EnableDeepLinking();
+                c.DisplayOperationId();
             });
             #endregion
 
@@ -172,7 +172,7 @@ namespace PointOfSales.DataCenter
                 endpoints.MapControllers();
             });
 
-            
+
         }
     }
 }
