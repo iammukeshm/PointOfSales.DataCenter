@@ -6,7 +6,7 @@ using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels;
 using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
-using PointOfSales.DataCenter.Domain.Entities;
+using PointOfSales.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

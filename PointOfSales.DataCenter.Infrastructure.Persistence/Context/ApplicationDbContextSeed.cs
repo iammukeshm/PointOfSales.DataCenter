@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PointOfSales.DataCenter.Application.Constants;
-using PointOfSales.DataCenter.Domain.Entities;
+using PointOfSales.Domain.Entities;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
 using System;
 using System.Collections.Generic;

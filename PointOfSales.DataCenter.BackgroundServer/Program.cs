@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI
+namespace PointOfSales.BackgroundServer
 {
     public class Program
     {
@@ -21,6 +16,6 @@ namespace PointOfSales.DataCenter.Infrastructure.Hangfire.DashboardUI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseSerilog();
     }
 }

@@ -3,7 +3,7 @@ using MediatR;
 using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
 using PointOfSales.DataCenter.Application.Mappings;
-using PointOfSales.DataCenter.Domain.Entities;
+using PointOfSales.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

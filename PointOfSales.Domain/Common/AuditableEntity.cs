@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PointOfSales.DataCenter.Domain.Common
+namespace PointOfSales.Domain.Common
 {
     public abstract class AuditableEntity
     {

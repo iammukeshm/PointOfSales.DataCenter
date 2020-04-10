@@ -15,7 +15,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Hangfire.Jobs
         }
         public async Task SendMailAsync(string email, string subject, string body)
         {
-            BackgroundJob.Schedule(()=> _emailSender.SendEmailAsync(email, subject, body),new TimeSpan(0,5,0));
+            BackgroundJob.Schedule(()=> _emailSender.SendEmailAsync(email, subject, body),new TimeSpan(0,0,10));
         }
     }
 }

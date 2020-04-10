@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PointOfSales.DataCenter.Application.Interfaces;
-using PointOfSales.DataCenter.Domain.Common;
-using PointOfSales.DataCenter.Domain.Entities;
+using PointOfSales.Domain.Common;
+using PointOfSales.Domain.Entities;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
 using System;
 using System.Collections.Generic;

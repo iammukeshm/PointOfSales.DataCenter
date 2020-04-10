@@ -8,6 +8,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\iammu\source\repos\PointOfSales.DataCenter\PointOfSales.DataCenter\PointOfSales.DataCenter.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.7.10" />
     <PackageReference Include="MediatR" Version="8.0.1" />
@@ -30,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
+    <ProjectReference Include="..\PointOfSales.DataCenter.Infrastructure.Hangfire\PointOfSales.DataCenter.Infrastructure.Hangfire.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Infrastructure.Persistence\PointOfSales.DataCenter.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 

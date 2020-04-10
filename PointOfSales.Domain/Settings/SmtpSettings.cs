@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PointOfSales.DataCenter.Domain.Settings
+namespace PointOfSales.Domain.Settings
 {
     public class SmtpSettings
     {

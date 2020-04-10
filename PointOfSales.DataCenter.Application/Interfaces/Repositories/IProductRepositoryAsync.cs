@@ -1,5 +1,5 @@
 ﻿using PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels;
-using PointOfSales.DataCenter.Domain.Entities;
+using PointOfSales.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

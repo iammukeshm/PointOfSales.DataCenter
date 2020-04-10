@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using PointOfSales.DataCenter.Application.Interfaces;
-using PointOfSales.DataCenter.Domain.Settings;
+using PointOfSales.Domain.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +18,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services.Email
         {
             _smtp = smtp.Value;
         }
+        [DisplayName("Mailing {0}")]
         public Task SendEmailAsync(string toEmail, string subject, string body)
         {
             try
