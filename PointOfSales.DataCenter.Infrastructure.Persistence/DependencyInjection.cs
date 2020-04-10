@@ -10,6 +10,7 @@ using PointOfSales.DataCenter.Infrastructure.Persistence.Helpers;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Repositories;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Services;
+using PointOfSales.DataCenter.Infrastructure.Persistence.Services.Email;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence
 {
@@ -31,7 +32,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
             //Services
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IDateTimeService, DateTimeService>();
-
+            services.AddTransient<IEmailService, EmailService>();
 
             //Repositories
             //Generic

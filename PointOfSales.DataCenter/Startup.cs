@@ -32,6 +32,7 @@ namespace PointOfSales.DataCenter
         {
             #region Configuration from AppSettings
             services.Configure<JwtSecurityTokenSettings>(_configuration.GetSection("JwtSecurityToken"));
+            services.Configure<SmtpSettings>(_configuration.GetSection("SmtpSettings"));
             #endregion
 
             //DI for Application
@@ -46,7 +47,7 @@ namespace PointOfSales.DataCenter
             #region Swagger
             services.AddSwaggerGen(c =>
             {
-                c.IncludeXmlComments(string.Format(@"{0}\PointOfSales.DataDistribution.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+                c.IncludeXmlComments(string.Format(@"{0}\PointOfSales.DataCenter.xml", System.AppDomain.CurrentDomain.BaseDirectory));
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",

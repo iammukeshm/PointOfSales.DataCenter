@@ -29,14 +29,16 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
         //private readonly IEmailService _emailService;
         //private readonly ClientAppSettings _client;
         private readonly JwtSecurityTokenSettings _jwt;
+        private readonly IEmailService _emailSender;
 
-        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt)
+        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt, IEmailService emailSender)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             //_emailService = emailService;
             //_client = client.Value;
             _jwt = jwt.Value;
+            _emailSender = emailSender;
         }
         public async Task<Result<string>> RegisterAsync(string userName, string password, string email, string role)
         {
@@ -63,6 +65,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     {
                         await _userManager.AddToRoleAsync(user, AuthorizationConstants.baseRole.ToString());
                     }
+                    await _emailSender.SendEmailAsync(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!");
                 }
                 return result.ToApplicationResult("", user.Id);
             }
@@ -70,8 +73,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             {
                 return Result<string>.Failure(new List<string> { $"Email {user.Email } is already registered." });
             }
-           
-            
+
+
             //if (result.Succeeded)
             //{
             //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -82,6 +85,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             //    return result.ToApplicationResult("", user.Id);
 
             //}
+
            
         }
         public async Task<Result<LoginUserViewModel>> LoginAsync(string password, string email)
@@ -125,7 +129,6 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     JwtSecurityToken jwtSecurityToken = await CreateJwtToken(user);
                     loginModel.TFAEnabled = false;
                     loginModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-
                     return Result<LoginUserViewModel>.Success(loginModel);
                 }
             }
