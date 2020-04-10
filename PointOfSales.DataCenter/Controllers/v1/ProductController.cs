@@ -32,10 +32,20 @@ namespace PointOfSales.DataCenter.Controllers.v1
             return Ok(await Mediator.Send(new GetProductByIdQuery { Id = id } ));
         }
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Administratoar")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteProductByIdCommand { Id = id }));
+        }
+        [HttpPut("[action]")]
+        [Authorize(Roles = "Administrator,Manager")]
+        public async Task<IActionResult> Update(int id, UpdateProductCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+            return Ok(await Mediator.Send(command));
         }
     }
 }
