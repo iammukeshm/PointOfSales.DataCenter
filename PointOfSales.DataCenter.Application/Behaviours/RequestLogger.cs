@@ -1,9 +1,6 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using PointOfSales.DataCenter.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -13,7 +13,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Queries
 {
     public class GetProductByIdQuery : IRequest<Result<ProductViewModel>>
     {
-        public int id;
+        public int Id;
         public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, Result<ProductViewModel>>
         {
             private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Queries
             }
             public async Task<Result<ProductViewModel>> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
             {
-                var product = await _productRepository.GetByIdAsync(query.id);
+                var product = await _productRepository.GetByIdAsync(query.Id);
                 var result = _mapper.Map<ProductViewModel>(product);
                 if (result == null)
                 {

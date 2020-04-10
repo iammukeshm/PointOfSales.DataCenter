@@ -27,7 +27,12 @@ namespace PointOfSales.DataCenter.Controllers.v1
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await Mediator.Send(new GetProductByIdQuery { id = id } ));
+            return Ok(await Mediator.Send(new GetProductByIdQuery { Id = id } ));
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteProductByIdCommand { Id = id }));
         }
     }
 }
