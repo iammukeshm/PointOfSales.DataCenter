@@ -11,10 +11,11 @@ using PointOfSales.DataCenter.Application.Features.ProductFeatures.Queries;
 namespace PointOfSales.DataCenter.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles ="Administratoar")]
+    [Authorize]
     public class ProductController : CoreController
     {
         [HttpPost]
+        [Authorize(Roles = "Administrator,Manager")]
         public async Task<IActionResult> Create(CreateProductCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -31,6 +32,7 @@ namespace PointOfSales.DataCenter.Controllers.v1
             return Ok(await Mediator.Send(new GetProductByIdQuery { Id = id } ));
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administratoar")]
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteProductByIdCommand { Id = id }));
