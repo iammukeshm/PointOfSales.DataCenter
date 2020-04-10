@@ -20,6 +20,7 @@ namespace PointOfSales.DataCenter.Controllers.v1
             return Ok(await Mediator.Send(command));
         }
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await Mediator.Send(new GetAllProductsQuery()));
