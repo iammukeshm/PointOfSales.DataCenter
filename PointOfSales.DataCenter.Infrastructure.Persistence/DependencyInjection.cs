@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PointOfSales.DataCenter.Application.Interfaces;
+using PointOfSales.DataCenter.Application.Interfaces.Jobs;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
+using PointOfSales.DataCenter.Infrastructure.Hangfire.Jobs;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Helpers;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
@@ -33,6 +35,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
             services.AddTransient<IAccountService, AccountService>();
             services.AddTransient<IDateTimeService, DateTimeService>();
             services.AddTransient<IEmailService, EmailService>();
+
+            services.AddTransient<IMailJob, MailJob>();
 
             //Repositories
             //Generic

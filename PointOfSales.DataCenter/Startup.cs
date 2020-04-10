@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using PointOfSales.DataCenter.Application;
 using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.DataCenter.Domain.Settings;
+using PointOfSales.DataCenter.Infrastructure.Hangfire;
 using PointOfSales.DataCenter.Infrastructure.Persistence;
 using PointOfSales.DataCenter.Services;
 using System;
@@ -33,6 +35,10 @@ namespace PointOfSales.DataCenter
             #region Configuration from AppSettings
             services.Configure<JwtSecurityTokenSettings>(_configuration.GetSection("JwtSecurityToken"));
             services.Configure<SmtpSettings>(_configuration.GetSection("SmtpSettings"));
+            #endregion
+
+            #region Hangfire
+            services.ConfigureHangfire(_configuration);           
             #endregion
 
             //DI for Application
@@ -110,8 +116,10 @@ namespace PointOfSales.DataCenter
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
+            // Configure hangfire to use the new JobActivator we defined.
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

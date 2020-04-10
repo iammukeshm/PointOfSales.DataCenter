@@ -3,6 +3,7 @@ using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.DataCenter.Domain.Settings;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Net;
 using System.Net.Mail;
 using System.Text;

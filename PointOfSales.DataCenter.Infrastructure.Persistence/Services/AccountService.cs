@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Hangfire;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Exceptions;
 using PointOfSales.DataCenter.Application.Features.Account.ViewModels;
 using PointOfSales.DataCenter.Application.Interfaces;
+using PointOfSales.DataCenter.Application.Interfaces.Jobs;
 using PointOfSales.DataCenter.Domain.Settings;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Extensions;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Helpers;
@@ -29,16 +31,16 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
         //private readonly IEmailService _emailService;
         //private readonly ClientAppSettings _client;
         private readonly JwtSecurityTokenSettings _jwt;
-        private readonly IEmailService _emailSender;
+        private readonly IMailJob _mail; 
 
-        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt, IEmailService emailSender)
+        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt, IMailJob mail)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             //_emailService = emailService;
             //_client = client.Value;
             _jwt = jwt.Value;
-            _emailSender = emailSender;
+            _mail = mail;
         }
         public async Task<Result<string>> RegisterAsync(string userName, string password, string email, string role)
         {
@@ -48,9 +50,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                 UserName = userName,
                 Email = email,
             };
-
             var userWithSameEmail = await _userManager.FindByEmailAsync(email);
-            if(userWithSameEmail == null)
+            if (userWithSameEmail == null)
             {
                 var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded)
@@ -65,7 +66,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     {
                         await _userManager.AddToRoleAsync(user, AuthorizationConstants.baseRole.ToString());
                     }
-                    await _emailSender.SendEmailAsync(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!");
+                    await _mail.SendMailAsync(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!. Your Password is '{password}'.Happy Sales!");
+
                 }
                 return result.ToApplicationResult("", user.Id);
             }
@@ -73,8 +75,6 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             {
                 return Result<string>.Failure(new List<string> { $"Email {user.Email } is already registered." });
             }
-
-
             //if (result.Succeeded)
             //{
             //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -84,9 +84,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
 
             //    return result.ToApplicationResult("", user.Id);
 
-            //}
-
-           
+            //}         
         }
         public async Task<Result<LoginUserViewModel>> LoginAsync(string password, string email)
         {

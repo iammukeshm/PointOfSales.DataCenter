@@ -19,6 +19,7 @@ namespace PointOfSales.DataCenter.Controllers
         //[ApiExplorerSettings(IgnoreApi = true)]
         public async Task<ActionResult> RegisterAsync(RegisterUserCommand command)
         {
+            
             var result = await Mediator.Send(command);
             return Ok(result);
         }
