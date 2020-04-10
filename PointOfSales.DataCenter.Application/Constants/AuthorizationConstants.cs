@@ -12,8 +12,8 @@ namespace PointOfSales.DataCenter.Application.Constants
             Manager,
             Operator
         }
+        public const Roles baseRole = Roles.Operator;
 
-       
         public const string default_username = "iammukeshm";
         public const string default_email = "iammukeshm@gmail.com";
         public const string default_password = "Pa$$w0rd.";

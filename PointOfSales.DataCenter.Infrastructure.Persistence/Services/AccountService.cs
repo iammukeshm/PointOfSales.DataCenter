@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PointOfSales.DataCenter.Application.Constants;
 using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Exceptions;
 using PointOfSales.DataCenter.Application.Features.Account.ViewModels;
@@ -14,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +38,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             //_client = client.Value;
             _jwt = jwt.Value;
         }
-        public async Task<Result<string>> RegisterAsync(string userName, string password, string email)
+        public async Task<Result<string>> RegisterAsync(string userName, string password, string email, string role)
         {
 
             var user = new ApplicationUser
@@ -44,7 +46,32 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                 UserName = userName,
                 Email = email,
             };
-            var result = await _userManager.CreateAsync(user, password);
+
+            var userWithSameEmail = await _userManager.FindByEmailAsync(email);
+            if(userWithSameEmail == null)
+            {
+                var result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    var roleExists = Enum.GetNames(typeof(AuthorizationConstants.Roles)).Any(x => x.ToLower() == role.ToLower());
+                    if (roleExists)
+                    {
+                        var validRole = Enum.GetValues(typeof(AuthorizationConstants.Roles)).Cast<AuthorizationConstants.Roles>().Where(x => x.ToString().ToLower() == role.ToLower()).FirstOrDefault();
+                        await _userManager.AddToRoleAsync(user, validRole.ToString());
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, AuthorizationConstants.baseRole.ToString());
+                    }
+                }
+                return result.ToApplicationResult("", user.Id);
+            }
+            else
+            {
+                return Result<string>.Failure(new List<string> { $"Email {user.Email } is already registered." });
+            }
+           
+            
             //if (result.Succeeded)
             //{
             //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -53,9 +80,9 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             //    //await _emailService.SendEmailConfirmationAsync(email, callbackUrl);
 
             //    return result.ToApplicationResult("", user.Id);
-            
+
             //}
-            return result.ToApplicationResult("", user.Id);
+           
         }
         public async Task<Result<LoginUserViewModel>> LoginAsync(string password, string email)
         {

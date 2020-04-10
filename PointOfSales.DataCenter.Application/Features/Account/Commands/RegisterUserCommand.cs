@@ -19,6 +19,8 @@ namespace PointOfSales.DataCenter.Application.Features.Account.Commands
 
         public string ConfirmPassword { get; set; }
 
+        public string Role { get; set; }
+
         public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<string>>
         {
             private readonly IAccountService  _accountService;
@@ -31,7 +33,7 @@ namespace PointOfSales.DataCenter.Application.Features.Account.Commands
             public async Task<Result<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
             {
 
-                return await _accountService.RegisterAsync(request.UserName, request.Password, request.Email);
+                return await _accountService.RegisterAsync(request.UserName, request.Password, request.Email,request.Role);
             }
         }
     }
