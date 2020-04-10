@@ -11,7 +11,7 @@ using PointOfSales.DataCenter.Application.Features.ProductFeatures.Queries;
 namespace PointOfSales.DataCenter.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Authorize]
+    [Authorize(Roles ="Administratoar")]
     public class ProductController : CoreController
     {
         [HttpPost]

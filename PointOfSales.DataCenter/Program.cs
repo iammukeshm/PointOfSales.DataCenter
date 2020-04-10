@@ -26,11 +26,10 @@ namespace PointOfSales.DataCenter
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    
-
+                    var context = services.GetRequiredService<ApplicationDbContext>();                  
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await ApplicationDbContextSeed.SeedEssentialsAsync(userManager, roleManager);
                     await ApplicationDbContextSeed.SeedAsync(userManager, context);
                 }
                 catch (Exception ex)
