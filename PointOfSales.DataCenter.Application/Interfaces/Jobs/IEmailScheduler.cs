@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Application.Interfaces.Jobs
 {
-    public interface IMailJob
+    public interface IEmailScheduler
     {
-        public void ScheduleMailInTenSeconds(string email, string subject, string body);
+        public void Schedule(string email, string subject, string body);
     }
 }

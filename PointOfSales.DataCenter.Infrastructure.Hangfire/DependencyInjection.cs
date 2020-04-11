@@ -18,7 +18,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Hangfire
             //services.AddHangfireServer(options =>
             //options.ServerName = "API Hangfire Server"
             //);
-            services.AddTransient<IMailJob, MailJob>();
+            services.AddTransient<IEmailScheduler, EmailScheduler>();
         }
     }
 }

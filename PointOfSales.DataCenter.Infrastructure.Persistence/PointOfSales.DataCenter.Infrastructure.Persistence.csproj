@@ -19,6 +19,7 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\CoreLibrary\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
     <ProjectReference Include="..\PointOfSales.Domain\PointOfSales.Domain.csproj" />

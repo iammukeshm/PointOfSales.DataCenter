@@ -32,16 +32,16 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
         //private readonly IEmailService _emailService;
         //private readonly ClientAppSettings _client;
         private readonly JwtSecurityTokenSettings _jwt;
-        private readonly IMailJob _mail; 
+        private readonly IEmailScheduler _emailScheduler; 
 
-        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt, IMailJob mail)
+        public AccountService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IOptions<JwtSecurityTokenSettings> jwt, IEmailScheduler emailScheduler)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             //_emailService = emailService;
             //_client = client.Value;
             _jwt = jwt.Value;
-            _mail = mail;
+            _emailScheduler = emailScheduler;
         }
         public async Task<Result<string>> RegisterAsync(string userName, string password, string email, string role)
         {
@@ -67,7 +67,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     {
                         await _userManager.AddToRoleAsync(user, AuthorizationConstants.baseRole.ToString());
                     }
-                    _mail.ScheduleMailInTenSeconds(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!. Your Password is '{password}'.Happy Sales!");
+                    _emailScheduler.Schedule(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!. Your Password is '{password}'.Happy Sales!");
 
                 }
                 return result.ToApplicationResult("", user.Id);

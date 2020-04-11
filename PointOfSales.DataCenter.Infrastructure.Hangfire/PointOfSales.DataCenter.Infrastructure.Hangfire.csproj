@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CoreLibrary\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
   </ItemGroup>
 

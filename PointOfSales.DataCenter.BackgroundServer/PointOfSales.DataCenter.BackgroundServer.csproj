@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Infrastructure.Persistence\PointOfSales.DataCenter.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\PointOfSales.Domain\PointOfSales.Domain.csproj" />
   </ItemGroup>
 
 
