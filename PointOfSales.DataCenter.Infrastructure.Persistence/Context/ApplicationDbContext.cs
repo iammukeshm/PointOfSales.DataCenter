@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.Domain.Common;
-using PointOfSales.Domain.Entities;
+using PointOfSales.Domain.Entities.Products;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
 using System;
 using System.Collections.Generic;

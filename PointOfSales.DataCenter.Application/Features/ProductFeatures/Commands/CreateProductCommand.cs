@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using PointOfSales.DataCenter.Application.DTOs;
-using PointOfSales.DataCenter.Application.Interfaces;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
 using PointOfSales.DataCenter.Application.Mappings;
-using PointOfSales.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PointOfSales.Domain.Entities.Products;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PointOfSales.Domain.Entities
+namespace PointOfSales.Domain.Entities.Products
 {
-    public class Product :AuditableEntity
+    public class Product : AuditableEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,9 +14,8 @@ namespace PointOfSales.Domain.Entities
         public string Description { get; set; }
         public bool DisableIfStockIsZero { get; set; } = true;
         public ProductGroup ProductGroup { get; set; }
-
         public int ProductGroupId { get; set; }
         public decimal BuyingPrice { get; set; }
-        public decimal SellingPrice { get; set; }
+        public decimal RetailPrice { get; set; }
     }
 }

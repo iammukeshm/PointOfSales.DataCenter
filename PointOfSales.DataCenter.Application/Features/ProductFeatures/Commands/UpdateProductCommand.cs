@@ -3,10 +3,7 @@ using MediatR;
 using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
 using PointOfSales.DataCenter.Application.Mappings;
-using PointOfSales.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PointOfSales.Domain.Entities.Products;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -47,7 +44,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
                 else
                 {
                     product.BuyingPrice = command.BuyingPrice;
-                    product.SellingPrice = command.SellingPrice;
+                    product.RetailPrice = command.SellingPrice;
                     product.IsActive = command.IsActive;
                     product.Name = command.Name;
                     await _productRepository.UpdateAsync(product);

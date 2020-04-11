@@ -7,6 +7,10 @@ namespace PointOfSales.DataCenter.Application.DTOs
 {
     public class Result<T>
     {
+        public Result()
+        {
+
+        }
         internal Result(bool succeeded, IEnumerable<string> errors,T data)
         {
             Succeeded = succeeded;

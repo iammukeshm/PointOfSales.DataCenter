@@ -7,6 +7,6 @@ namespace PointOfSales.DataCenter.Application.Interfaces.Jobs
 {
     public interface IMailJob
     {
-        public Task SendMailAsync(string email, string subject, string body);
+        public void ScheduleMailInTenSeconds(string email, string subject, string body);
     }
 }

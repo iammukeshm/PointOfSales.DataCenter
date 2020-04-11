@@ -41,6 +41,7 @@ namespace PointOfSales.DataCenter.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetProductByIdQuery { Id = id } ));

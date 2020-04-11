@@ -67,7 +67,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     {
                         await _userManager.AddToRoleAsync(user, AuthorizationConstants.baseRole.ToString());
                     }
-                    await _mail.SendMailAsync(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!. Your Password is '{password}'.Happy Sales!");
+                    _mail.ScheduleMailInTenSeconds(user.Email, "Welcome!", $"Thanks for registering in our System as {user.UserName}!. Your Password is '{password}'.Happy Sales!");
 
                 }
                 return result.ToApplicationResult("", user.Id);

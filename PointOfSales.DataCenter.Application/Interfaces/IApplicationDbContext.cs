@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PointOfSales.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PointOfSales.Domain.Entities.Products;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PointOfSales.DataCenter.Application.Constants;
-using PointOfSales.Domain.Entities;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Models;
+using PointOfSales.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
@@ -90,7 +89,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
         {
             return new List<Product>()
             {
-                new Product{ IsActive=true, Name = "Pepsi 350ml", ProductGroupId =1, Barcode ="MKS00115420000012", BuyingPrice = 25, DisableIfStockIsZero=true, SellingPrice = 39, Description="Sample Description about Pepsi 350ml"}
+                new Product{ IsActive=true, Name = "Pepsi 350ml", ProductGroupId =1, Barcode ="MKS00115420000012", BuyingPrice = 25, DisableIfStockIsZero=true, RetailPrice = 39, Description="Sample Description about Pepsi 350ml"}
             };
         }
     }

@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using PointOfSales.DataCenter.Application.Mappings;
-using PointOfSales.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PointOfSales.Domain.Entities.Products;
 
 namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels
 {
@@ -17,7 +14,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModel
 
         public int ProductGroupId { get; set; }
         public decimal BuyingPrice { get; set; }
-        public decimal SellingPrice { get; set; }
+        public decimal RetailPrice { get; set; }
 
         public void Mapping(Profile profile)
         {

@@ -3,11 +3,9 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
-using PointOfSales.Domain.Entities;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
-using System;
+using PointOfSales.Domain.Entities.Products;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Repositories

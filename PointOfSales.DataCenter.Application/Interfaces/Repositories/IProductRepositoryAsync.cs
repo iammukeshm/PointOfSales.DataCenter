@@ -1,8 +1,6 @@
 ﻿using PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels;
-using PointOfSales.Domain.Entities;
-using System;
+using PointOfSales.Domain.Entities.Products;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Application.Interfaces.Repositories
