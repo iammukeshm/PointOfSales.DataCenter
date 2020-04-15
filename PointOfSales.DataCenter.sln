@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backends", "Backends", "{2B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreLibrary", "..\CoreLibrary\CoreLibrary\CoreLibrary.csproj", "{0F758099-E6DF-4D99-A100-D2ADECD68134}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointOfSales.Test", "PointOfSales.Test\PointOfSales.Test.csproj", "{0DFBC13D-4D21-4DA7-83BF-8EB583781FB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PointOfSales.Test", "PointOfSales.Test\PointOfSales.Test.csproj", "{0DFBC13D-4D21-4DA7-83BF-8EB583781FB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

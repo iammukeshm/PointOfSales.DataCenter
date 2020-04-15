@@ -21,7 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreLibrary\CoreLibrary\CoreLibrary.csproj" />
     <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
-    <ProjectReference Include="..\PointOfSales.DataCenter.Application\PointOfSales.DataCenter.Application.csproj" />
     <ProjectReference Include="..\PointOfSales.Domain\PointOfSales.Domain.csproj" />
   </ItemGroup>
 </Project>
