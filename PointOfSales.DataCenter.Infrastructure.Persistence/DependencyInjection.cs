@@ -42,6 +42,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
             //Specific Repositories
             services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
             services.AddTransient<IPersonRepositoryAsync, PersonRepositoryAsync>();
+            services.AddTransient<IInvoiceRepositoryAsync, InvoiceRepositoryAsync>();
             services.AddAuthentication();
 
             //Keep this always at last. JWT

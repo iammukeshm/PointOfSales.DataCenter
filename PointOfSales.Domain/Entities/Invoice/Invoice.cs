@@ -10,7 +10,7 @@ namespace PointOfSales.Domain.Entities.Invoice
 		public int Id { get; set; }
 		public int InvoiceNumber { get; set; } 
 		public Person Customer { get; set; }
-		public long CustomerId { get; set; }
+		public int CustomerId { get; set; }
 		public decimal SubTotal { get; set; }
 		public decimal GivenDiscount { get; set; }
 		public decimal Tax { get; set; }

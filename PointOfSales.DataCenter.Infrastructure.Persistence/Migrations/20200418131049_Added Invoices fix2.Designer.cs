@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200418131049_Added Invoices fix2")]
+    partial class AddedInvoicesfix2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,7 +277,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("Difference")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("InvoiceId")
+                    b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
@@ -315,7 +317,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("InvoiceId")
+                    b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Remarks")
@@ -562,11 +564,9 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("PointOfSales.Domain.Entities.Invoice.InvoiceDetail", b =>
                 {
-                    b.HasOne("PointOfSales.Domain.Entities.Invoice.Invoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("PointOfSales.Domain.Entities.Invoice.Invoice", null)
+                        .WithMany("Products")
+                        .HasForeignKey("InvoiceId");
 
                     b.HasOne("PointOfSales.Domain.Entities.Products.Product", "Product")
                         .WithMany()
@@ -577,11 +577,9 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("PointOfSales.Domain.Entities.Invoice.InvoiceTransaction", b =>
                 {
-                    b.HasOne("PointOfSales.Domain.Entities.Invoice.Invoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("PointOfSales.Domain.Entities.Invoice.Invoice", null)
+                        .WithMany("InvoiceTransactions")
+                        .HasForeignKey("InvoiceId");
                 });
 
             modelBuilder.Entity("PointOfSales.Domain.Entities.Products.Product", b =>
