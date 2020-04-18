@@ -14,13 +14,13 @@ namespace PointOfSales.DataCenter.Application.DTOs
         internal Result(bool succeeded, IEnumerable<string> errors,T data)
         {
             Succeeded = succeeded;
-            Errors = errors.ToArray();
+            Messages = errors.ToArray();
             Data = data;
         }
         public T Data { get; set; }
         public bool Succeeded { get; set; }
 
-        public string[] Errors { get; set; }
+        public string[] Messages { get; set; }
 
         public static Result<T> Success(T data)
         {

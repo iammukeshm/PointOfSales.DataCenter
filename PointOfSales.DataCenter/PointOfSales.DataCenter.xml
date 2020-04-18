@@ -4,6 +4,12 @@
         <name>PointOfSales.DataCenter</name>
     </assembly>
     <members>
+        <member name="M:PointOfSales.DataCenter.Controllers.v1.PeopleController.GetAll">
+            <summary>
+            Gets all Products.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PointOfSales.DataCenter.Controllers.v1.ProductController.Create(PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands.CreateProductCommand)">
             <summary>
             Creates a New Product.

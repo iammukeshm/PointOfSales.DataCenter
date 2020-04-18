@@ -94,10 +94,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
 
             if (user == null)
             {
-                throw new NotFoundException(nameof(ApplicationUser), email, nameof(email));
+                return Result<LoginUserViewModel>.Failure(new List<string> { $"No Accounts Registered with {email}." });
             }
-            //if (user == null)
-            //    return BadRequest(new string[] { "Invalid credentials." });
 
             var loginModel = new LoginUserViewModel()
             {
@@ -128,7 +126,12 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     JwtSecurityToken jwtSecurityToken = await CreateJwtToken(user);
                     loginModel.TFAEnabled = false;
                     loginModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-                    return Result<LoginUserViewModel>.Success(loginModel);
+                    loginModel.FirstName = user.FirstName;
+                    loginModel.LastName = user.LastName;
+                    loginModel.Email = user.Email;
+                    loginModel.UserName = user.UserName;
+                    loginModel.PhoneNumber = user.PhoneNumber;
+                    return Result<LoginUserViewModel>.Success($"Logged in as {user.UserName}",loginModel);
                 }
             }
             return Result<LoginUserViewModel>.Failure(new List<string> { $"Incorrect Credentials for user {user.Email}.",  });

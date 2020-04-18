@@ -21,7 +21,7 @@ namespace PointOfSales.Test
             var result = await api.PostAsync<Result<LoginUserViewModel>>("api/Account/login", data);
 
             var accessToken = result.Data.Token;
-
+            Console.WriteLine(accessToken);
             api.AddJwtAuthorization(accessToken);
             //var allProducts = await apiAuth.GetAsync<Result<IEnumerable<ProductViewModel>>>("api/v1/Product");
             var productOne = await api.GetAsync<Result<ProductViewModel>>("api/v1/Product/1");
