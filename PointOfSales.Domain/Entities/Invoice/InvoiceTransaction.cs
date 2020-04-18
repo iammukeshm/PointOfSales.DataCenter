@@ -1,10 +1,11 @@
-﻿using System;
+﻿using PointOfSales.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PointOfSales.Domain.Entities.Invoice
 {
-    public class InvoiceTransaction
+    public class InvoiceTransaction : AuditableEntity
     {
         public int Id { get; set; }
         public Invoice Invoice { get; set; }

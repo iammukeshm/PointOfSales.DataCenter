@@ -20,14 +20,12 @@ namespace PointOfSales.DataCenter.Application.Features.Invoice.Commands
         public InvoiceModel invoice { get; set; }
         public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceCommand, Result<int>>
         {
-            private readonly IMapper _mapper;
             private readonly IInvoiceRepositoryAsync _invoiceRepository;
             private readonly IInvoiceDetailRepositoryAsync _invoiceDetailRepository;
             private readonly IProductRepositoryAsync _productRepository;
             private readonly IPersonRepositoryAsync _personRepository;
-            public CreateInvoiceCommandHandler(IMapper mapper, IInvoiceRepositoryAsync invoiceRepository, IProductRepositoryAsync productRepository, IPersonRepositoryAsync personRepositoryAsync, IInvoiceDetailRepositoryAsync invoiceDetailRepository)
+            public CreateInvoiceCommandHandler(IInvoiceRepositoryAsync invoiceRepository, IProductRepositoryAsync productRepository, IPersonRepositoryAsync personRepositoryAsync, IInvoiceDetailRepositoryAsync invoiceDetailRepository)
             {
-                _mapper = mapper;
                 _invoiceRepository = invoiceRepository;
                 _personRepository = personRepositoryAsync;
                 _productRepository = productRepository;
@@ -37,7 +35,11 @@ namespace PointOfSales.DataCenter.Application.Features.Invoice.Commands
             {
                 decimal taxRate = 0.14m;
                 //Check if customer is valid
-
+                var customer = await _personRepository.GetByIdAsync(command.invoice.CustomerId);
+                if(customer == null)
+                {
+                    return Result<int>.Failure($"Customer with ID {command.invoice.CustomerId} is either not active or not registered yet.");
+                }
                 //Create Invoice Detail List Model
                 var invoiceDetails = new List<Entity.InvoiceDetail>();
                 foreach (var item in command.invoice.InvoiceDetails)
@@ -53,7 +55,7 @@ namespace PointOfSales.DataCenter.Application.Features.Invoice.Commands
                     //Check if Products are valid
                     if (thisProduct == null)
                     {
-                        throw new Exception("NULL Product");
+                        return Result<int>.Failure($"Product with ID {detail.ProductId} is either not active or not registered yet.");
                     }
                     detail.Rate = thisProduct.Rate;
                     detail.SubTotal = (detail.Rate * detail.Quantity);
