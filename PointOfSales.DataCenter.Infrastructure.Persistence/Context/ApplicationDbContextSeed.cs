@@ -89,7 +89,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
         {
             return new List<Product>()
             {
-                new Product{ IsActive=true, Name = "Pepsi 350ml", ProductGroupId =1, Barcode ="MKS00115420000012", BuyingPrice = 25, DisableIfStockIsZero=true, RetailPrice = 39, Description="Sample Description about Pepsi 350ml"}
+                new Product{ IsActive=true, Name = "Pepsi 350ml", ProductGroupId =1, Barcode ="MKS00115420000012",  DisableIfStockIsZero=true, Rate = 39, Description="Sample Description about Pepsi 350ml"}
             };
         }
     }

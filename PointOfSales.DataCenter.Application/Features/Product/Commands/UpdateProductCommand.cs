@@ -17,8 +17,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public int ProductGroupId { get; set; }
-        public decimal BuyingPrice { get; set; }
-        public decimal SellingPrice { get; set; }
+        public decimal Rate { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Product, UpdateProductCommand>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
@@ -43,8 +42,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
                 }
                 else
                 {
-                    product.BuyingPrice = command.BuyingPrice;
-                    product.RetailPrice = command.SellingPrice;
+                    product.Rate = command.Rate;
                     product.IsActive = command.IsActive;
                     product.Name = command.Name;
                     await _productRepository.UpdateAsync(product);

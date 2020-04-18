@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PointOfSales.DataCenter.Infrastructure.Persistence.Context;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200418145945_Added Invoices fix4")]
+    partial class AddedInvoicesfix4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,6 +391,9 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
                     b.Property<string>("Barcode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("BuyingPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -419,7 +424,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Migrations
                     b.Property<int>("ProductGroupId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Rate")
+                    b.Property<decimal>("RetailPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
