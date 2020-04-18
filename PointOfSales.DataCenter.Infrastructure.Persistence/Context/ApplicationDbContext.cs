@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using PointOfSales.Domain.Entities.People;
+using PointOfSales.Domain.Entities.Invoice;
 
 namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
 {
@@ -30,6 +31,10 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
         public DbSet<Person> People{ get; set; }
+
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceDetail>  InvoiceDetails{ get; set; }
+        public DbSet<InvoiceTransaction> InvoiceTransactions{ get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

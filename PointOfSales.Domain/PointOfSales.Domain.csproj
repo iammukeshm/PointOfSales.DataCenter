@@ -8,7 +8,6 @@
     <Folder Include="Entities\Company\" />
     <Folder Include="Entities\Address\" />
     <Folder Include="Entities\Blob\" />
-    <Folder Include="Entities\Bill\" />
   </ItemGroup>
 
 </Project>
