@@ -75,17 +75,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
             else
             {
                 return Result<string>.Failure(new List<string> { $"Email {user.Email } is already registered." });
-            }
-            //if (result.Succeeded)
-            //{
-            //    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            //    //var callbackUrl = $"{_client.Url}{_client.EmailConfirmationPath}?uid={user.Id}&code={System.Net.WebUtility.UrlEncode(code)}";
-
-            //    //await _emailService.SendEmailConfirmationAsync(email, callbackUrl);
-
-            //    return result.ToApplicationResult("", user.Id);
-
-            //}         
+            }     
         }
         public async Task<Result<LoginUserViewModel>> LoginAsync(string password, string email)
         {
@@ -108,10 +98,6 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                 return Result<LoginUserViewModel>.Failure(new List<string> { $"Email not confirmed for user {user.Email}." });
             }
 
-            //// Used as user lock
-            //if (user.LockoutEnabled)
-            //    return BadRequest(new string[] { "This account has been locked." });
-
             if (await _userManager.CheckPasswordAsync(user, password))
             {
                 loginModel.HasVerifiedEmail = true;
@@ -131,6 +117,8 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
                     loginModel.Email = user.Email;
                     loginModel.UserName = user.UserName;
                     loginModel.PhoneNumber = user.PhoneNumber;
+                    var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+                    loginModel.Roles = rolesList.ToList();
                     return Result<LoginUserViewModel>.Success($"Logged in as {user.UserName}",loginModel);
                 }
             }
@@ -178,5 +166,11 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Services
 
             return user.UserName;
         }
+
+        //TODO : Get All Roles
+
+        //TODO : Add User to Role
+
+        //TODO : Remove User ffrom Role 
     }
 }

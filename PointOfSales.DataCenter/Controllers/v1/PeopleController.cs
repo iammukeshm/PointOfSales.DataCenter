@@ -10,7 +10,7 @@ using PointOfSales.DataCenter.Application.Features.Person.Queries;
 namespace PointOfSales.DataCenter.Controllers.v1
 {
     [ApiVersion("1.0")]
-    [Authorize]
+    [Authorize(Roles ="Administrator")]
     public class PeopleController : CoreController
     {
         /// <summary>
