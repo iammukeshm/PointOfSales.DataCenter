@@ -4,7 +4,7 @@ using PointOfSales.Domain.Entities.Products;
 
 namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModels
 {
-    public class ProductViewModel : IMapFrom<Product>
+    public class ProductViewModel : IMapFrom<Domain.Entities.Products.Product>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,8 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.ViewModel
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Product, ProductViewModel>();
-            profile.CreateMap<ProductViewModel, Product>();
+            profile.CreateMap<Domain.Entities.Products.Product, ProductViewModel>();
+            profile.CreateMap<ProductViewModel, Domain.Entities.Products.Product>();
         }
     }
 }

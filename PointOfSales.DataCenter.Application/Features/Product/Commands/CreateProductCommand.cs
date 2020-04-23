@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
 {
-    public class CreateProductCommand : IRequest<Result<int>>, IMapFrom<Product>
+    public class CreateProductCommand : IRequest<Result<int>>, IMapFrom<Domain.Entities.Products.Product>
     {
         public string Name { get; set; }
         public string Barcode { get; set; }
@@ -19,8 +19,8 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
         public decimal SellingPrice { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Product, CreateProductCommand>();
-            profile.CreateMap<CreateProductCommand, Product>();
+            profile.CreateMap<Domain.Entities.Products.Product, CreateProductCommand>();
+            profile.CreateMap<CreateProductCommand, Domain.Entities.Products.Product>();
         }
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Result<int>>
         {
@@ -33,7 +33,7 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
             }
             public async Task<Result<int>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
             {
-                var product = _mapper.Map<Product>(command);
+                var product = _mapper.Map<Domain.Entities.Products.Product>(command);
                 if(await _productRepository.DoesBarCodeExist(product.Barcode))
                 {
                     return Result<int>.Failure($"Product with Barcode {product.Barcode} already exists.");

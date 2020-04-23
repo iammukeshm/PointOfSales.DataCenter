@@ -41,6 +41,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence
             services.AddTransient(typeof(IRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             //Specific Repositories
             services.AddTransient<IProductRepositoryAsync, ProductRepositoryAsync>();
+            services.AddTransient<IProductGroupRepositoryAsync, ProductGroupRepositoryAsync>();
             services.AddTransient<IPersonRepositoryAsync, PersonRepositoryAsync>();
             services.AddTransient<IInvoiceRepositoryAsync, InvoiceRepositoryAsync>();
             services.AddTransient<IInvoiceDetailRepositoryAsync, InvoiceDetailRepositoryAsync>();

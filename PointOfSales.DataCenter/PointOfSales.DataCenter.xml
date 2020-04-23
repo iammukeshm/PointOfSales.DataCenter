@@ -45,6 +45,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:PointOfSales.DataCenter.Controllers.v1.ProductGroupController.GetAll">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:PointOfSales.DataCenter.Controllers.v1.WeatherForecastController.Get">
             <summary>
             Generates Sample Weather Data

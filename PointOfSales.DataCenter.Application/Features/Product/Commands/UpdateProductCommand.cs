@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
 {
-    public class UpdateProductCommand : IRequest<Result<int>>, IMapFrom<Product>
+    public class UpdateProductCommand : IRequest<Result<int>>, IMapFrom<Domain.Entities.Products.Product>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -20,8 +20,8 @@ namespace PointOfSales.DataCenter.Application.Features.ProductFeatures.Commands
         public decimal Rate { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Product, UpdateProductCommand>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-            profile.CreateMap<UpdateProductCommand, Product>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            profile.CreateMap<Domain.Entities.Products.Product, UpdateProductCommand>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            profile.CreateMap<UpdateProductCommand, Domain.Entities.Products.Product>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
         public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Result<int>>
         {
