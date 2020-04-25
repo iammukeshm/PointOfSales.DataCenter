@@ -14,7 +14,7 @@ namespace PointOfSales.DataCenter.Controllers.v1
     public class ProductGroupController : CoreController
     {
         /// <summary>
-        /// 
+        /// Get All Product Groups
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -22,6 +22,12 @@ namespace PointOfSales.DataCenter.Controllers.v1
         public async Task<IActionResult> GetAll()
         {
             return Ok(await Mediator.Send(new GetAllProductGroupsQuery()));
+        }
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await Mediator.Send(new GetProductGroupByIdQuery() { Id = id }));
         }
     }
 }
