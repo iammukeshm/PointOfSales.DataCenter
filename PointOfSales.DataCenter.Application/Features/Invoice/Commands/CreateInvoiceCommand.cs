@@ -2,6 +2,7 @@
 using MediatR;
 using PointOfSales.DataCenter.Application.DTOs;
 using PointOfSales.DataCenter.Application.Features.Invoice.ViewModels;
+using PointOfSales.DataCenter.Application.Interfaces.Jobs;
 using PointOfSales.DataCenter.Application.Interfaces.Repositories;
 using PointOfSales.Domain.Entities.Invoice;
 using PointOfSales.Domain.Entities.Products;
@@ -24,12 +25,14 @@ namespace PointOfSales.DataCenter.Application.Features.Invoice.Commands
             private readonly IInvoiceDetailRepositoryAsync _invoiceDetailRepository;
             private readonly IProductRepositoryAsync _productRepository;
             private readonly IPersonRepositoryAsync _personRepository;
-            public CreateInvoiceCommandHandler(IInvoiceRepositoryAsync invoiceRepository, IProductRepositoryAsync productRepository, IPersonRepositoryAsync personRepositoryAsync, IInvoiceDetailRepositoryAsync invoiceDetailRepository)
+            private readonly IEmailScheduler _emailScheduler;
+            public CreateInvoiceCommandHandler(IInvoiceRepositoryAsync invoiceRepository, IProductRepositoryAsync productRepository, IPersonRepositoryAsync personRepositoryAsync, IInvoiceDetailRepositoryAsync invoiceDetailRepository, IEmailScheduler emailScheduler)
             {
                 _invoiceRepository = invoiceRepository;
                 _personRepository = personRepositoryAsync;
                 _productRepository = productRepository;
                 _invoiceDetailRepository = invoiceDetailRepository;
+                _emailScheduler = emailScheduler;
             }
             public async Task<Result<int>> Handle(CreateInvoiceCommand command, CancellationToken cancellationToken)
             {
@@ -92,6 +95,8 @@ namespace PointOfSales.DataCenter.Application.Features.Invoice.Commands
                     item.InvoiceId = newInvoice.Id;
                     await _invoiceDetailRepository.AddAsync(item);
                 }
+                //Email
+                //_emailScheduler.Schedule(customer.Email, "Invoice Created!", $"Your Invoice has been generated!. Your Due Amount is '{ invoice.Total}'.");
                 return Result<int>.Success(newInvoice.Id);
                 
             }
