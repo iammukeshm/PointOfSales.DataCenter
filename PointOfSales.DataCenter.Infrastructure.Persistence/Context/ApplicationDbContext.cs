@@ -59,6 +59,7 @@ namespace PointOfSales.DataCenter.Infrastructure.Persistence.Context
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.Entity<Product>().Property(x => x.Rate).HasColumnType("decimal(16,3)");
         }
     }
 }

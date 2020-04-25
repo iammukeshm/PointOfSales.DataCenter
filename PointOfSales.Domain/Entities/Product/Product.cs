@@ -16,6 +16,7 @@ namespace PointOfSales.Domain.Entities.Products
         public bool DisableIfStockIsZero { get; set; } = true;
         public ProductGroup ProductGroup { get; set; }
         public int ProductGroupId { get; set; }
+
         public decimal Rate { get; set; }
     }
 }

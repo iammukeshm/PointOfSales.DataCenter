@@ -47,7 +47,7 @@
         </member>
         <member name="M:PointOfSales.DataCenter.Controllers.v1.ProductGroupController.GetAll">
             <summary>
-            
+            Get All Product Groups
             </summary>
             <returns></returns>
         </member>
